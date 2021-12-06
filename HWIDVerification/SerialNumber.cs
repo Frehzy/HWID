@@ -72,11 +72,7 @@ namespace HWIDVerification
 
         private static string TryGetString(string wmiClass, string wmiProperty)
         {
-            try 
-            {
-                string result = $"{wmiProperty}: " + identifier(wmiClass, wmiProperty);
-                return result + "\n";
-            }
+            try { return $"{wmiProperty}: {identifier(wmiClass, wmiProperty)}\n"; }
             catch { return null; }
         }
 
