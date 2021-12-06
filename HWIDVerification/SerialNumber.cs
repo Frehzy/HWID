@@ -1,49 +1,29 @@
-﻿using System.Management;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Management;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HWIDVerification
 {
-    public class CerialNumber
+    public class SerialNumber
     {
-        private class HWIDClass
-        {
-            public string HWID { get; set; }
-            public string HWIDHash { get; set; }
-
-            public string CPU { get; set; }
-            public string BIOS { get; set; }
-            public string BaseBoard { get; set; }
-            public string DiskDrive { get; set; }
-            public string VideoController { get; set; }
-        }
-
         public string HWID { get; private set; }
         public string HWIDHash { get; private set; }
 
-        public CerialNumber()
+        public SerialNumber()
         {
-            HWIDClass HWIDc = Value();
-            HWID = HWIDc.HWID;
-            HWIDHash = HWIDc.HWIDHash;
+            HWID = GetHWID();
+            HWIDHash = HashClass.GetHash(HWID);
         }
 
-        private HWIDClass Value()
+        private string GetHWID()
         {
-            HWIDClass HWIDc = new HWIDClass();
-            if (string.IsNullOrEmpty(string.Empty))
-            {
-                HWIDc.CPU = "CPU >> " + CPU_ID();
-                HWIDc.BIOS = "BIOS >> " + BIOS_ID();
-                HWIDc.BaseBoard = "BaseBoard >> " + BaseBoardID();
-                HWIDc.DiskDrive = "DiskDrive >> " + DiskDriveID();
-                HWIDc.VideoController = "VideoController >> " + VideoControllerID();
-
-                HWIDc.HWID = HWIDc.CPU + HWIDc.BIOS + HWIDc.BaseBoard + HWIDc.DiskDrive + HWIDc.VideoController;
-
-                HWIDc.HWIDHash = HashClass.GetHash(HWIDc.HWID);
-            }
-            return HWIDc;
+            Func<string>[] methods = new Func<string>[] { CpuID, BiosID, BaseBoardID, DiskDriveID, VideoControllerID };
+            return string.Concat(Task.WhenAll(methods.Select(Task.Run)).Result);
         }
+
         #region Original Device ID Getting Code
         private static string identifier (string wmiClass, string wmiProperty, string wmiMustBeTrue)
         {
@@ -100,50 +80,45 @@ namespace HWIDVerification
             catch { return null; }
         }
 
-        private static string CPU_ID()
+        private static string CpuID()
         {
-            string result = "";
-            result += TryGetString("Win32_Processor", "ProcessorId");
+            string result = TryGetString("Win32_Processor", "ProcessorId");
             result += TryGetString("Win32_Processor", "Name");
             result += TryGetString("Win32_Processor", "Manufacturer");
             result += TryGetString("Win32_Processor", "MaxClockSpeed");
-            return result;
+            return "CPU >> " + result;
         }
-        private static string BIOS_ID()
+        private static string BiosID()
         {
-            string result = "";
-            result += TryGetString("Win32_BIOS", "SerialNumber");
+            string result = TryGetString("Win32_BIOS", "SerialNumber");
             result += TryGetString("Win32_BIOS", "SMBIOSBIOSVersion");
             result += TryGetString("Win32_BIOS", "Manufacturer");
             result += TryGetString("Win32_BIOS", "ReleaseDate");
             result += TryGetString("Win32_BIOS", "Version");
-            return result;
+            return "BIOS >> " + result;
         }
         private static string BaseBoardID()
         {
-            string result = "";
-            result += TryGetString("Win32_BaseBoard", "SerialNumber");
+            string result = TryGetString("Win32_BaseBoard", "SerialNumber");
             result += TryGetString("Win32_BaseBoard", "Name");
             result += TryGetString("Win32_BaseBoard", "Manufacturer");
-            return result;
+            return "BaseBoard >> " + result;
         }
         private static string DiskDriveID()
         {
-            string result = "";
-            result += TryGetString("Win32_DiskDrive", "SerialNumber");
+            string result = TryGetString("Win32_DiskDrive", "SerialNumber");
             result += TryGetString("Win32_DiskDrive", "TotalHeads");
             result += TryGetString("Win32_DiskDrive", "Signature");
             result += TryGetString("Win32_DiskDrive", "Manufacturer");
             result += TryGetString("Win32_DiskDrive", "Model");
-            return result;
+            return "DiskDrive >> " + result;
         }
         private static string VideoControllerID()
         {
-            string result = "";
-            result += TryGetString("Win32_VideoController", "PNPDeviceID");
+            string result = TryGetString("Win32_VideoController", "PNPDeviceID");
             result += TryGetString("Win32_VideoController", "Name");
             result += TryGetString("Win32_VideoController", "AdapterRAM");
-            return result;
+            return "VideoController >> " + result;
         }
         private static string MAC_ID()
         {

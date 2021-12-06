@@ -52,8 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CerialNumberAsync.cs" />
-    <Compile Include="CerialNumber.cs" />
+    <Compile Include="SerialNumber.cs" />
     <Compile Include="HashClass.cs" />
     <Compile Include="IP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

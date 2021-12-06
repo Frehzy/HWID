@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Ct3MA3F4pM2vD85Ad/7XECV2/a8thhAdegWhtuEB6U/TYr9+zdFZrV+qcL/IYoZjH2D7RNffdsH5dfS8LcpnWQ==",
+  "dgSpecHash": "T/Pu5vgvDKZipMhZKDKvSSUyLf02thAt9ntfbUorkvsRJO9Vhml+6sJTS0Xee45doxL+lft2bM16behcTmBQFA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\OneDrive\\Рабочий стол\\Практика(рефакторинг)\\Verification\\Verification\\Verification.csproj",
+  "projectFilePath": "C:\\Users\\user\\OneDrive\\Рабочий стол\\HWID\\Verification\\Verification.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",

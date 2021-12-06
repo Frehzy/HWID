@@ -458,11 +458,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\OneDrive\\Рабочий стол\\Практика(рефакторинг)\\Verification\\Verification\\Verification.csproj",
+      "projectUniqueName": "C:\\Users\\user\\OneDrive\\Рабочий стол\\HWID\\Verification\\Verification.csproj",
       "projectName": "Verification",
-      "projectPath": "C:\\Users\\user\\OneDrive\\Рабочий стол\\Практика(рефакторинг)\\Verification\\Verification\\Verification.csproj",
+      "projectPath": "C:\\Users\\user\\OneDrive\\Рабочий стол\\HWID\\Verification\\Verification.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\OneDrive\\Рабочий стол\\Практика(рефакторинг)\\Verification\\Verification\\obj\\",
+      "outputPath": "C:\\Users\\user\\OneDrive\\Рабочий стол\\HWID\\Verification\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
