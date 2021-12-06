@@ -9,8 +9,7 @@ namespace Verification
         {
             Console.WriteLine(Protect.Encrypt("92.248.231.140"));
 
-
-            long ellapledTicks0 = DateTime.Now.Ticks;
+            /*long ellapledTicks0 = DateTime.Now.Ticks;
             new CerialNumber();
             Console.WriteLine("Потрачено SYNC тактов на выполнение: " + (DateTime.Now.Ticks - ellapledTicks0));
 
@@ -52,13 +51,14 @@ namespace Verification
             long ellapledTicks5 = DateTime.Now.Ticks;
             var q4 = new CerialNumberAsync();
             Console.WriteLine("Потрачено ASYNC тактов на выполнение: " + (DateTime.Now.Ticks - ellapledTicks5));
-            Console.WriteLine(q4.HWIDHash);
+            Console.WriteLine(q4.HWIDHash);*/
 
 
             long ellapledTicks6 = DateTime.Now.Ticks;
             var q5 = new CerialNumberAsync();
             Console.WriteLine("Потрачено ASYNC тактов на выполнение: " + (DateTime.Now.Ticks - ellapledTicks6));
             Console.WriteLine(q5.HWIDHash);
+            Console.WriteLine(q5.HWID);
 
             IP onlyIP = new IP();
             IP infoIP = new IP(onlyIP.PublicIP);
