@@ -1,48 +1,44 @@
-﻿using System.Management;
+﻿using System.Collections.Generic;
+using System.Management;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HWIDVerification
 {
-    public class CerialNumber
+    public class CerialNumberAsync
     {
-        private class HWIDClass
+        private static class HWIDClass
         {
-            public string HWID { get; set; }
-            public string HWIDHash { get; set; }
-
-            public string CPU { get; set; }
-            public string BIOS { get; set; }
-            public string BaseBoard { get; set; }
-            public string DiskDrive { get; set; }
-            public string VideoController { get; set; }
+            public static string CPU { get; set; }
+            public static string BIOS { get; set; }
+            public static string BaseBoard { get; set; }
+            public static string DiskDrive { get; set; }
+            public static string VideoController { get; set; }
         }
 
         public string HWID { get; private set; }
         public string HWIDHash { get; private set; }
 
-        public CerialNumber()
+        public CerialNumberAsync()
         {
-            HWIDClass HWIDc = Value();
-            HWID = HWIDc.HWID;
-            HWIDHash = HWIDc.HWIDHash;
+            Value();
         }
 
-        private HWIDClass Value()
+        private void Value()
         {
-            HWIDClass HWIDc = new HWIDClass();
             if (string.IsNullOrEmpty(string.Empty))
             {
-                HWIDc.CPU = "CPU >> " + CPU_ID();
-                HWIDc.BIOS = "BIOS >> " + BIOS_ID();
-                HWIDc.BaseBoard = "BaseBoard >> " + BaseBoardID();
-                HWIDc.DiskDrive = "DiskDrive >> " + DiskDriveID();
-                HWIDc.VideoController = "VideoController >> " + VideoControllerID();
+                Task task1 = Task.Run(CPU_ID);
+                Task task2 = Task.Run(BIOS_ID);
+                Task task3 = Task.Run(BaseBoardID);
+                Task task4 = Task.Run(DiskDriveID);
+                Task task5 = Task.Run(VideoControllerID);
+                Task.WaitAll(task1, task2, task3, task4, task5);
 
-                HWIDc.HWID = HWIDc.CPU + HWIDc.BIOS + HWIDc.BaseBoard + HWIDc.DiskDrive + HWIDc.VideoController;
+                HWID = HWIDClass.CPU + HWIDClass.BIOS + HWIDClass.BaseBoard + HWIDClass.DiskDrive + HWIDClass.VideoController;
 
-                HWIDc.HWIDHash = HashClass.GetHash(HWIDc.HWID);
+                HWIDHash = HashClass.GetHash(HWID);
             }
-            return HWIDc;
         }
         #region Original Device ID Getting Code
         private static string identifier (string wmiClass, string wmiProperty, string wmiMustBeTrue)
@@ -100,50 +96,45 @@ namespace HWIDVerification
             catch { return null; }
         }
 
-        private static string CPU_ID()
+        private static void CPU_ID()
         {
-            string result = "";
-            result += TryGetString("Win32_Processor", "ProcessorId");
+            string result = TryGetString("Win32_Processor", "ProcessorId");
             result += TryGetString("Win32_Processor", "Name");
             result += TryGetString("Win32_Processor", "Manufacturer");
             result += TryGetString("Win32_Processor", "MaxClockSpeed");
-            return result;
+            HWIDClass.CPU = "CPU >> " + result;
         }
-        private static string BIOS_ID()
+        private static void BIOS_ID()
         {
-            string result = "";
-            result += TryGetString("Win32_BIOS", "SerialNumber");
+            string result = TryGetString("Win32_BIOS", "SerialNumber");
             result += TryGetString("Win32_BIOS", "SMBIOSBIOSVersion");
             result += TryGetString("Win32_BIOS", "Manufacturer");
             result += TryGetString("Win32_BIOS", "ReleaseDate");
             result += TryGetString("Win32_BIOS", "Version");
-            return result;
+            HWIDClass.BIOS = "BIOS >> " + result;
         }
-        private static string BaseBoardID()
+        private static void BaseBoardID()
         {
-            string result = "";
-            result += TryGetString("Win32_BaseBoard", "SerialNumber");
+            string result = TryGetString("Win32_BaseBoard", "SerialNumber");
             result += TryGetString("Win32_BaseBoard", "Name");
             result += TryGetString("Win32_BaseBoard", "Manufacturer");
-            return result;
+            HWIDClass.BaseBoard = "BaseBoard >> " + result;
         }
-        private static string DiskDriveID()
+        private static void DiskDriveID()
         {
-            string result = "";
-            result += TryGetString("Win32_DiskDrive", "SerialNumber");
+            string result = TryGetString("Win32_DiskDrive", "SerialNumber");
             result += TryGetString("Win32_DiskDrive", "TotalHeads");
             result += TryGetString("Win32_DiskDrive", "Signature");
             result += TryGetString("Win32_DiskDrive", "Manufacturer");
             result += TryGetString("Win32_DiskDrive", "Model");
-            return result;
+            HWIDClass.DiskDrive = "DiskDrive >> " + result;
         }
-        private static string VideoControllerID()
+        private static void VideoControllerID()
         {
-            string result = "";
-            result += TryGetString("Win32_VideoController", "PNPDeviceID");
+            string result = TryGetString("Win32_VideoController", "PNPDeviceID");
             result += TryGetString("Win32_VideoController", "Name");
             result += TryGetString("Win32_VideoController", "AdapterRAM");
-            return result;
+            HWIDClass.VideoController = "VideoController >> " + result;
         }
         private static string MAC_ID()
         {

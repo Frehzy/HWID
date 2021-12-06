@@ -8,3 +8,4 @@ C:\Users\user\OneDrive\Рабочий стол\Практика(рефактор
 C:\Users\user\OneDrive\Рабочий стол\Практика(рефакторинг)\Verification\HWIDVerification\bin\Debug\System.CodeDom.xml
 C:\Users\user\OneDrive\Рабочий стол\Практика(рефакторинг)\Verification\HWIDVerification\bin\Debug\Newtonsoft.Json.dll
 C:\Users\user\OneDrive\Рабочий стол\Практика(рефакторинг)\Verification\HWIDVerification\bin\Debug\Newtonsoft.Json.xml
+C:\Users\user\OneDrive\Рабочий стол\Практика(рефакторинг)\Verification\HWIDVerification\obj\Debug\HWIDVerification.csproj.CopyComplete
