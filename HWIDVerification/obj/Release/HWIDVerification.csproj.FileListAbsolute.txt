@@ -20,3 +20,14 @@ C:\Users\user\OneDrive\Рабочий стол\HWID\HWIDVerification\obj\Release
 C:\Users\user\OneDrive\Рабочий стол\HWID\HWIDVerification\obj\Release\HWIDVerification.csproj.CopyComplete
 C:\Users\user\OneDrive\Рабочий стол\HWID\HWIDVerification\obj\Release\HWIDVerification.dll
 C:\Users\user\OneDrive\Рабочий стол\HWID\HWIDVerification\obj\Release\HWIDVerification.pdb
+C:\Users\user\OneDrive\Рабочий стол\HWID-main\HWIDVerification\bin\Release\HWIDVerification.dll
+C:\Users\user\OneDrive\Рабочий стол\HWID-main\HWIDVerification\bin\Release\HWIDVerification.pdb
+C:\Users\user\OneDrive\Рабочий стол\HWID-main\HWIDVerification\bin\Release\Newtonsoft.Json.dll
+C:\Users\user\OneDrive\Рабочий стол\HWID-main\HWIDVerification\bin\Release\System.CodeDom.dll
+C:\Users\user\OneDrive\Рабочий стол\HWID-main\HWIDVerification\bin\Release\Newtonsoft.Json.xml
+C:\Users\user\OneDrive\Рабочий стол\HWID-main\HWIDVerification\bin\Release\System.CodeDom.xml
+C:\Users\user\OneDrive\Рабочий стол\HWID-main\HWIDVerification\obj\Release\HWIDVerification.csproj.AssemblyReference.cache
+C:\Users\user\OneDrive\Рабочий стол\HWID-main\HWIDVerification\obj\Release\HWIDVerification.csproj.CoreCompileInputs.cache
+C:\Users\user\OneDrive\Рабочий стол\HWID-main\HWIDVerification\obj\Release\HWIDVerification.csproj.CopyComplete
+C:\Users\user\OneDrive\Рабочий стол\HWID-main\HWIDVerification\obj\Release\HWIDVerification.dll
+C:\Users\user\OneDrive\Рабочий стол\HWID-main\HWIDVerification\obj\Release\HWIDVerification.pdb
