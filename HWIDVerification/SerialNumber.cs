@@ -25,7 +25,7 @@ namespace HWIDVerification
         }
 
         #region Original Device ID Getting Code
-        private static string identifier (string wmiClass, string wmiProperty, string wmiMustBeTrue)
+        private static string identifier(string wmiClass, string wmiProperty, string wmiMustBeTrue)
         {
             string result = "";
             ManagementObjectCollection moc = new ManagementClass(wmiClass).GetInstances();
@@ -48,76 +48,83 @@ namespace HWIDVerification
             }
             return result;
         }
-        private static string identifier(string wmiClass, string wmiProperty)
+        private static string identifier(string wmiClass, List<string> wmiPropertyList)
         {
             string result = "";
             ManagementClass mc = new ManagementClass(wmiClass);
             ManagementObjectCollection moc = mc.GetInstances();
             foreach (ManagementObject mo in moc)
             {
-                if (result == "")
+                try
                 {
-                    try
-                    {
-                        result = mo[wmiProperty].ToString();
-                        break;
-                    }
-                    catch
-                    {
-                    }
+                    foreach (string wmiProperty in wmiPropertyList)
+                        result += $"{wmiProperty}: " + mo[wmiProperty].ToString() + "\n";
+                    break;
                 }
+                catch
+                { }
             }
             return result;
         }
 
-        private static string TryGetString(string wmiClass, string wmiProperty)
-        {
-            try 
-            {
-                string result = $"{wmiProperty}: " + identifier(wmiClass, wmiProperty);
-                return result + "\n";
-            }
-            catch { return null; }
-        }
-
         private static string CpuID()
         {
-            string result = TryGetString("Win32_Processor", "ProcessorId");
-            result += TryGetString("Win32_Processor", "Name");
-            result += TryGetString("Win32_Processor", "Manufacturer");
-            result += TryGetString("Win32_Processor", "MaxClockSpeed");
+            List<string> wmiPropertyList = new List<string>()
+            {
+                "ProcessorId",
+                "Name",
+                "Manufacturer",
+                "MaxClockSpeed"
+            };
+            string result = identifier("Win32_Processor", wmiPropertyList);
             return "CPU >> " + result;
         }
         private static string BiosID()
         {
-            string result = TryGetString("Win32_BIOS", "SerialNumber");
-            result += TryGetString("Win32_BIOS", "SMBIOSBIOSVersion");
-            result += TryGetString("Win32_BIOS", "Manufacturer");
-            result += TryGetString("Win32_BIOS", "ReleaseDate");
-            result += TryGetString("Win32_BIOS", "Version");
+            List<string> wmiPropertyList = new List<string>()
+            {
+                "SerialNumber",
+                "SMBIOSBIOSVersion",
+                "Manufacturer",
+                "ReleaseDate",
+                "Version"
+            };
+            string result = identifier("Win32_BIOS", wmiPropertyList);
             return "BIOS >> " + result;
         }
         private static string BaseBoardID()
         {
-            string result = TryGetString("Win32_BaseBoard", "SerialNumber");
-            result += TryGetString("Win32_BaseBoard", "Name");
-            result += TryGetString("Win32_BaseBoard", "Manufacturer");
+            List<string> wmiPropertyList = new List<string>()
+            {
+                "SerialNumber",
+                "Name",
+                "Manufacturer"
+            };
+            string result = identifier("Win32_BaseBoard", wmiPropertyList);
             return "BaseBoard >> " + result;
         }
         private static string DiskDriveID()
         {
-            string result = TryGetString("Win32_DiskDrive", "SerialNumber");
-            result += TryGetString("Win32_DiskDrive", "TotalHeads");
-            result += TryGetString("Win32_DiskDrive", "Signature");
-            result += TryGetString("Win32_DiskDrive", "Manufacturer");
-            result += TryGetString("Win32_DiskDrive", "Model");
+            List<string> wmiPropertyList = new List<string>()
+            {
+                "SerialNumber",
+                "TotalHeads",
+                "Signature",
+                "Manufacturer",
+                "Model"
+            };
+            string result = identifier("Win32_DiskDrive", wmiPropertyList);
             return "DiskDrive >> " + result;
         }
         private static string VideoControllerID()
         {
-            string result = TryGetString("Win32_VideoController", "PNPDeviceID");
-            result += TryGetString("Win32_VideoController", "Name");
-            result += TryGetString("Win32_VideoController", "AdapterRAM");
+            List<string> wmiPropertyList = new List<string>()
+            {
+                "PNPDeviceID",
+                "Name",
+                "AdapterRAM"
+            };
+            string result = identifier("Win32_VideoController", wmiPropertyList);
             return "VideoController >> " + result;
         }
         private static string MAC_ID()
